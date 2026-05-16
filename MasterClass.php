@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
@@ -17,23 +18,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property float $price
  * @property-read Category $category
  * @property-read User $instructor
- * @property-read \Illuminate\Database\Eloquent\Collection|Booking[] $bookings
+ * @property-read Collection|Booking[] $bookings
  * @property-read int $available_spots
  * @property-read string $time_display
  */
-
 class MasterClass extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'category_id', 
-        'instructor_id', 
-        'title', 
+        'category_id',
+        'instructor_id',
+        'title',
         'description',
-        'date', 
-        'time_slot', 
-        'max_participants', 
-        'price'
+        'date',
+        'time_slot',
+        'max_participants',
+        'price',
     ];
 
     protected $casts = [
@@ -58,11 +59,12 @@ class MasterClass extends Model
     public function getAvailableSpotsAttribute()
     {
         $bookedCount = $this->bookings()->where('status', 'confirmed')->count();
+
         return $this->max_participants - $bookedCount;
     }
 
     public function getTimeDisplayAttribute()
     {
-        return str_replace('-', ':00-', $this->time_slot) . ':00';
+        return str_replace('-', ':00-', $this->time_slot).':00';
     }
 }
