@@ -5,6 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property int $id
+ * @property int $category_id
+ * @property int $instructor_id
+ * @property string $title
+ * @property string $description
+ * @property string $date
+ * @property string $time_slot
+ * @property int $max_participants
+ * @property float $price
+ * @property-read Category $category
+ * @property-read User $instructor
+ * @property-read \Illuminate\Database\Eloquent\Collection|Booking[] $bookings
+ * @property-read int $available_spots
+ * @property-read string $time_display
+ */
+
 class MasterClass extends Model
 {
     use HasFactory;
