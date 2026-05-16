@@ -5,6 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $master_class_id
+ * @property string $status
+ * @property-read User $user
+ * @property-read MasterClass $masterClass
+ */
+
 class Booking extends Model
 {
     use HasFactory;
