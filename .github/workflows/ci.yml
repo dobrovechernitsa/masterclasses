@@ -97,7 +97,20 @@ jobs:
     if: always()
     
     steps:
-    - name: Notify result
-      run: |
-        echo "Pipeline finished with status: ${{ job.status }}"
+    - name: Send notification
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const status = '${{ job.status }}';
+          const branch = '${{ github.ref_name }}';
+          const runUrl = `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+          
+          const body = `Pipeline for ${branch}: ${status}\n${runUrl}`;
+          
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: 1,
+            body: body
+          });
         echo "Branch: ${{ github.ref_name }}"
