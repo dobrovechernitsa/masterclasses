@@ -1,0 +1,39 @@
+@extends('layouts.app')
+
+@section('title', 'Главная')
+
+@section('content')
+<div class="row">
+    <div class="hover"></div>
+    <div class="title">Добро пожаловать!</div>
+    <div class="row--small grid between">
+        <div class="content">
+            <p>Добро пожаловать в клуб любителей творчества «ОчУмелые ручки»!</p>
+            
+            @auth
+                <h3>Мои записи:</h3>
+                @if($userBookings->count() > 0)
+                    <ul>
+                        @foreach($userBookings as $booking)
+                            <li>
+                                {{ $booking->masterClass->category->name }} - 
+                                {{ $booking->masterClass->title }} - 
+                                {{ $booking->masterClass->date->format('d.m.Y') }} 
+                                {{ $booking->masterClass->time_display }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p>У вас пока нет записей на мастер-классы.</p>
+                @endif
+            @endif
+        </div>
+        
+        <ul class="menu">
+            @foreach($categories as $category)
+                <li><a href="{{ route('categories.show', $category) }}">{{ $category->name }}</a></li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endsection
