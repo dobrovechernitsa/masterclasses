@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-
 /**
  * @property int $id
  * @property int $category_id
@@ -24,8 +23,6 @@ use Illuminate\Support\Carbon;
  * @property-read int $available_spots
  * @property-read string $time_display
  */
-
-
 class MasterClass extends Model
 {
     use HasFactory;
