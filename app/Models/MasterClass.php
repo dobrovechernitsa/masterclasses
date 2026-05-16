@@ -29,6 +29,7 @@ use Illuminate\Support\Carbon;
 //
 
 class MasterClass extends Model
+    
 {
     use HasFactory;
 
