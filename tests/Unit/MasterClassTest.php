@@ -26,7 +26,7 @@ class MasterClassTest extends TestCase
         $user = User::factory()->visitor()->create();
         Booking::factory()->create([
             'master_class_id' => $masterClass->id,
-            'user_id' => $user->fullname,
+            'user_id' => $user->id,
             'status' => 'confirmed',
         ]);
 
