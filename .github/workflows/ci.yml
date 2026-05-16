@@ -1,0 +1,103 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, dev, qa ]
+  pull_request:
+    branches: [ main, dev, qa ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: sqlite3, pdo_sqlite
+        coverage: xdebug
+    
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+    
+    - name: Prepare environment
+      run: |
+        cp .env.ci .env
+        php artisan key:generate
+    
+    - name: Run tests with coverage
+      run: php artisan test --coverage --min=50
+  
+  static-analysis:
+    runs-on: ubuntu-latest
+    needs: tests
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+    
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+    
+    - name: Run PHPStan
+      run: vendor/bin/phpstan analyse --error-format=github
+  
+  linting:
+    runs-on: ubuntu-latest
+    needs: static-analysis
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+    
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+    
+    - name: Run Pint (test mode)
+      run: vendor/bin/pint --test
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: linting
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/qa'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set environment
+      id: env
+      run: |
+        if [ "${{ github.ref_name }}" = "main" ]; then
+          echo "env=prod" >> $GITHUB_OUTPUT
+        elif [ "${{ github.ref_name }}" = "dev" ]; then
+          echo "env=dev" >> $GITHUB_OUTPUT
+        else
+          echo "env=uat" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Deploy
+      run: |
+        cp .env.${{ steps.env.outputs.env }} .env
+        echo "Deploying to ${{ steps.env.outputs.env }} with .env.${{ steps.env.outputs.env }}"
+  
+  notify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+    
+    steps:
+    - name: Notify result
+      run: |
+        echo "Pipeline finished with status: ${{ job.status }}"
+        echo "Branch: ${{ github.ref_name }}"
