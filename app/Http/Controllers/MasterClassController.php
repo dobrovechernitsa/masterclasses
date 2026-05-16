@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\MasterClass;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class MasterClassController extends Controller
 {
     private function checkInstructor()
     {
-        if (!auth()->user()->isInstructor()) {
+        if (! auth()->user()->isInstructor()) {
             abort(403);
         }
     }
@@ -19,27 +19,27 @@ class MasterClassController extends Controller
     public function create()
     {
         $this->checkInstructor();
-        
+
         $categories = Category::all();
-        
+
         $bookedSlots = auth()->user()->masterClasses()
             ->where('date', '>=', now()->toDateString())
             ->get()
-            ->groupBy(function($class) {
+            ->groupBy(function ($class) {
                 return $class->date->format('Y-m-d');
             })
-            ->map(function($slots) {
+            ->map(function ($slots) {
                 return $slots->pluck('time_slot')->toArray();
             })
             ->toArray();
-            
+
         return view('instructor.master-classes.create', compact('categories', 'bookedSlots'));
     }
 
     public function store(Request $request)
     {
         $this->checkInstructor();
-        
+
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:255',
@@ -95,24 +95,24 @@ class MasterClassController extends Controller
     public function edit(MasterClass $masterClass)
     {
         $this->checkInstructor();
-        
+
         if ($masterClass->instructor_id !== auth()->id()) {
             abort(403);
         }
-        
+
         $categories = Category::all();
-        
+
         return view('instructor.master-classes.edit', compact('masterClass', 'categories'));
     }
 
     public function update(Request $request, MasterClass $masterClass)
     {
         $this->checkInstructor();
-        
+
         if ($masterClass->instructor_id !== auth()->id()) {
             abort(403);
         }
-        
+
         $validated = $request->validate([
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
@@ -129,5 +129,4 @@ class MasterClassController extends Controller
             ->route('instructor.cabinet')
             ->with('success', 'Мастер-класс успешно обновлен!');
     }
-
 }

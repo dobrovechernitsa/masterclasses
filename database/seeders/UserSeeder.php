@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password123'),
             'phone' => '89123456765',
             'role' => 'instructor',
-            'photo' => 'driver1.png'
+            'photo' => 'driver1.png',
         ]);
 
         User::create([
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password123'),
             'phone' => '89998887766',
             'role' => 'visitor',
-            'photo' => null
+            'photo' => null,
         ]);
 
         for ($i = 1; $i <= 5; $i++) {
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
                 'full_name' => "Пользователь Тестовый $i",
                 'email' => "user{$i}@example.com",
                 'password' => Hash::make('password123'),
-                'phone' => '8900' . rand(1000000, 9999999),
+                'phone' => '8900'.rand(1000000, 9999999),
                 'role' => 'visitor',
             ]);
         }

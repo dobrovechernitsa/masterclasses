@@ -11,9 +11,10 @@ class MasterClassSeeder extends Seeder
     {
         if (MasterClass::count() > 0) {
             echo "Мастер-классы уже существуют. Пропускаем.\n";
+
             return;
         }
-        
+
         $masterClasses = [
             [
                 'category_id' => 1,
@@ -23,7 +24,7 @@ class MasterClassSeeder extends Seeder
                 'date' => '2026-06-05',
                 'time_slot' => '13-15',
                 'max_participants' => 10,
-                'price' => 1500.00
+                'price' => 1500.00,
             ],
             [
                 'category_id' => 1,
@@ -33,7 +34,7 @@ class MasterClassSeeder extends Seeder
                 'date' => '2026-06-14',
                 'time_slot' => '15-17',
                 'max_participants' => 8,
-                'price' => 1800.00
+                'price' => 1800.00,
             ],
             [
                 'category_id' => 2,
@@ -43,7 +44,7 @@ class MasterClassSeeder extends Seeder
                 'date' => '2026-06-10',
                 'time_slot' => '9-11',
                 'max_participants' => 12,
-                'price' => 2000.00
+                'price' => 2000.00,
             ],
             [
                 'category_id' => 2,
@@ -53,7 +54,7 @@ class MasterClassSeeder extends Seeder
                 'date' => '2026-06-17',
                 'time_slot' => '11-13',
                 'max_participants' => 10,
-                'price' => 2500.00
+                'price' => 2500.00,
             ],
             [
                 'category_id' => 3,
@@ -63,7 +64,7 @@ class MasterClassSeeder extends Seeder
                 'date' => '2026-06-20',
                 'time_slot' => '13-15',
                 'max_participants' => 8,
-                'price' => 1500.00
+                'price' => 1500.00,
             ],
             [
                 'category_id' => 3,
@@ -73,14 +74,14 @@ class MasterClassSeeder extends Seeder
                 'date' => '2026-06-25',
                 'time_slot' => '15-17',
                 'max_participants' => 6,
-                'price' => 1700.00
+                'price' => 1700.00,
             ],
         ];
 
         foreach ($masterClasses as $class) {
             MasterClass::create($class);
         }
-        
-        echo "Создано мастер-классов: " . count($masterClasses) . "\n";
+
+        echo 'Создано мастер-классов: '.count($masterClasses)."\n";
     }
 }

@@ -13,10 +13,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'full_name' => fake()->name() . ' ' . fake()->lastName(),
+            'full_name' => fake()->name().' '.fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'password' => Hash::make('password123'),
-            'phone' => '8' . fake()->numerify('9#########'),
+            'phone' => '8'.fake()->numerify('9#########'),
             'role' => 'visitor',
             'photo' => null,
         ];

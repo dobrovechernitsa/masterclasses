@@ -2,12 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\User;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-
     public function test_user_can_login()
     {
         $user = User::factory()->visitor()->create(['password' => 'password123']);

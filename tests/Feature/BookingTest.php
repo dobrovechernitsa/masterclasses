@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\MasterClass;
 use App\Models\Category;
-use App\Models\Booking;
+use App\Models\MasterClass;
+use App\Models\User;
+use Tests\TestCase;
 
 class BookingTest extends TestCase
 {
@@ -19,7 +18,7 @@ class BookingTest extends TestCase
             'instructor_id' => $instructor->id,
         ]);
 
-        $response = $this->get('/categories/' . $category->id);
+        $response = $this->get('/categories/'.$category->id);
         $response->assertDontSee('записаться');
     }
 
@@ -32,7 +31,7 @@ class BookingTest extends TestCase
             'max_participants' => 10,
         ]);
 
-        $response = $this->actingAs($user)->get('/categories/' . $category->id);
+        $response = $this->actingAs($user)->get('/categories/'.$category->id);
         $response->assertSee('записаться');
     }
 
@@ -47,9 +46,9 @@ class BookingTest extends TestCase
             'max_participants' => 10,
         ]);
 
-        $response = $this->actingAs($user)->post('/booking/' . $masterClass->id);
+        $response = $this->actingAs($user)->post('/booking/'.$masterClass->id);
 
-        $response->assertRedirect('/categories/' . $category->id);
+        $response->assertRedirect('/categories/'.$category->id);
         $response->assertSessionHas('success');
         $this->assertDatabaseHas('bookings', [
             'user_id' => $user->id,
@@ -57,5 +56,4 @@ class BookingTest extends TestCase
             'status' => 'confirmed',
         ]);
     }
-
 }

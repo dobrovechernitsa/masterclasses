@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MasterClassController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\MasterClassController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/booking/{masterClass}', [BookingController::class, 'store'])->name('booking.store');
     Route::get('/booking/deny/{masterClass}', [BookingController::class, 'deny'])->name('booking.deny');
     Route::delete('/booking/{booking}', [BookingController::class, 'cancel'])->name('booking.cancel');
-    
+
     Route::prefix('instructor')->name('instructor.')->group(function () {
         Route::get('/cabinet', [InstructorController::class, 'cabinet'])->name('cabinet');
         Route::get('/master-classes/create', [MasterClassController::class, 'create'])->name('master-classes.create');

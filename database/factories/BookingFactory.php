@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Booking;
-use App\Models\User;
 use App\Models\MasterClass;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BookingFactory extends Factory

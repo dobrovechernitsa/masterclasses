@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('max_participants');
             $table->decimal('price', 10, 2);
             $table->timestamps();
-            
+
             $table->unique(['instructor_id', 'date', 'time_slot']);
         });
 
@@ -37,7 +37,7 @@ return new class extends Migration
             $table->foreignId('master_class_id')->constrained('master_classes');
             $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();
-            
+
             $table->unique(['user_id', 'master_class_id']);
         });
     }

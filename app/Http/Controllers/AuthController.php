@@ -28,11 +28,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
-            
+
             if (auth()->user()->isInstructor()) {
                 return redirect()->route('instructor.cabinet');
             }
-            
+
             return redirect()->intended('/');
         }
 
@@ -100,6 +100,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('/');
     }
 }

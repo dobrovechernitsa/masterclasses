@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read User $user
  * @property-read MasterClass $masterClass
  */
-
 class Booking extends Model
 {
     use HasFactory;
+
     protected $fillable = ['user_id', 'master_class_id', 'status'];
 
     public function user()

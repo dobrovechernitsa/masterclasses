@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Models\MasterClass;
-use App\Models\Category;
-use App\Models\User;
 use App\Models\Booking;
+use App\Models\Category;
+use App\Models\MasterClass;
+use App\Models\User;
+use Tests\TestCase;
 
 class MasterClassTest extends TestCase
 {
@@ -14,7 +14,7 @@ class MasterClassTest extends TestCase
     {
         $category = Category::factory()->create();
         $instructor = User::factory()->instructor()->create();
-        
+
         $masterClass = MasterClass::factory()->create([
             'category_id' => $category->id,
             'instructor_id' => $instructor->id,
@@ -32,5 +32,4 @@ class MasterClassTest extends TestCase
 
         $this->assertEquals(9, $masterClass->fresh()->available_spots);
     }
-    
 }
