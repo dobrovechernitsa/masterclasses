@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property-read int $available_spots
  * @property-read string $time_display
  */
+
 class MasterClass extends Model
 {
     use HasFactory;
