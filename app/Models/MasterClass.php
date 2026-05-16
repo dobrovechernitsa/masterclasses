@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-//
 
 /**
  * @property int $id
@@ -26,10 +25,8 @@ use Illuminate\Support\Carbon;
  * @property-read string $time_display
  */
 
-//
 
 class MasterClass extends Model
-    
 {
     use HasFactory;
 
