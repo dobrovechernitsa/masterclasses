@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read MasterClass $masterClass
  */
 class Booking extends Model
+    
 {
     use HasFactory;
 
