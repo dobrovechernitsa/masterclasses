@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $instructor_id
  * @property string $title
  * @property string $description
- * @property \Illuminate\Support\Carbon $date
+ * @property Carbon $date
  * @property string $time_slot
  * @property int $max_participants
  * @property float $price
