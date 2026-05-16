@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $instructor_id
  * @property string $title
  * @property string $description
- * @property string $date
+ * @property \Illuminate\Support\Carbon $date
  * @property string $time_slot
  * @property int $max_participants
  * @property float $price
