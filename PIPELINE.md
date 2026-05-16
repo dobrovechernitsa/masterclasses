@@ -24,9 +24,9 @@
 
 # Среды
 
-Ветка main - файл .env.prod - Production
-Ветка dev - файл .env.dev - Development
-Ветка qa - файл .env.uat - User Acceptance Testing
+- Ветка main - файл .env.prod - Production
+- Ветка dev - файл .env.dev - Development
+- Ветка qa - файл .env.uat - User Acceptance Testing
 
 # Конфигурационные файлы
 - `.env.ci` — для тестов в пайплайне (SQLite in-memory)
